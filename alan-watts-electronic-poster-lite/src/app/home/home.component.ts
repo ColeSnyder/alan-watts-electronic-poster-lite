@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
     return fetch('https://api.open-meteo.com/v1/forecast?latitude=43.9844&longitude=-91.8693&timezone=CST&current_weather=true')
       .then(res => res.json())
       .then(res => {
-        console.log(res)
         return res as fullWeatherResponse
       })
   }
