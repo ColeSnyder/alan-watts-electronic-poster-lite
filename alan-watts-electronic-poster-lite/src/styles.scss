@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.wholeContainer {
+  opacity: 85%;
+  background-size: cover;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.drizzleBackground {
+  background: url('assets/photos/background-drizzle.gif') no-repeat center center fixed;
+  opacity: 85%;
+  background-size: cover;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.fogBackground {
+  background: url('assets/photos/background-fog.gif') no-repeat center center fixed;
+  opacity: 85%;
+  background-size: cover;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.freezingRainBackground {
+  background: url('assets/photos/background-freezingrain.gif') no-repeat center center fixed;
+}
+
+.partlyCloudyBackground {
+  background: url('assets/photos/background-partlycloudy.gif') no-repeat center center fixed;
+  opacity: 85%;
+  background-size: cover;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.rainBackground {
+  background: url('assets/photos/background-rain.gif') no-repeat center center fixed;
+}
+
+.snowBackground {
+  background: url('assets/photos/background-snow.gif') no-repeat center center fixed;
+}
+
+.sunBackground {
+  background: url('assets/photos/background-sun.gif') no-repeat center center fixed;
+}
+
+h1 {
+  color: white;
+  font-family: 'Bebas Neue', cursive;
+  text-align: center;
+  padding-top: 20%;
+  font-size: 4em;
+  opacity: 85%;
+}
