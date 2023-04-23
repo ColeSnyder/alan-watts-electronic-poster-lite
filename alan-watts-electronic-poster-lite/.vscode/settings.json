@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/5f837521-73b7-464a-8561-35ba2cd5fb90/resourceGroups/AlanWattsElectronicPoster/providers/Microsoft.Web/sites/AlanWattsElectronicPoster",
+    "appService.deploySubpath": "dist"
+}
