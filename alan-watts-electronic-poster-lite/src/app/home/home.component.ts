@@ -49,23 +49,23 @@ export class HomeComponent implements OnInit {
       })
   }
 
-  setBackgroundBasedOnWeatherCode(weather: fullWeatherResponse) {
-    var elements = document.getElementsByClassName("wholeContainer");
+   setBackgroundBasedOnWeatherCode(weather: fullWeatherResponse) {
+     var elements = document.getElementsByClassName("wholeContainer");
 
-    if (this.codes.clearSky.includes(weather.current_weather.weathercode)) {
-      elements[0].classList.add("sunBackground");
-    } else if (this.codes.drizzle.includes(weather.current_weather.weathercode)) {
-      elements[0].classList.add("drizzleBackground");
-    } else if (this.codes.fog.includes(weather.current_weather.weathercode)) {
-      elements[0].classList.add("fogBackground");
-    } else if (this.codes.freezingRain.includes(weather.current_weather.weathercode)) {
-      elements[0].classList.add("freezingrainBackground");
-    } else if (this.codes.partlyCloudy.includes(weather.current_weather.weathercode)) {
-      elements[0].classList.add("partlyCloudyBackground");
-    } else if (this.codes.rain.includes(weather.current_weather.weathercode)) {
-      elements[0].classList.add("rainBackground");
-    } else if (this.codes.snow.includes(weather.current_weather.weathercode)) {
-      elements[0].classList.add("snowBackground");
-    }
-  }
+     if (this.codes.clearSky.includes(weather.current_weather.weathercode)) {
+       elements[0].classList.add("sunBackground");
+     } else if (this.codes.drizzle.includes(weather.current_weather.weathercode)) {
+       elements[0].classList.add("drizzleBackground");
+     } else if (this.codes.fog.includes(weather.current_weather.weathercode)) {
+       elements[0].classList.add("fogBackground");
+     } else if (this.codes.freezingRain.includes(weather.current_weather.weathercode)) {
+       elements[0].classList.add("freezingrainBackground");
+     } else if (this.codes.partlyCloudy.includes(weather.current_weather.weathercode)) {
+       elements[0].classList.add("partlyCloudyBackground");
+     } else if (this.codes.rain.includes(weather.current_weather.weathercode)) {
+       elements[0].classList.add("rainBackground");
+     } else if (this.codes.snow.includes(weather.current_weather.weathercode)) {
+       elements[0].classList.add("snowBackground");
+     }
+   }
 }
