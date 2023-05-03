@@ -19,39 +19,37 @@ export class AppComponent implements OnInit {
   quoteCounter: number = 0;
   codes: weatherCodes = new weatherCodes();
   videoSource: string = "./assets/photos/vids/sun.mp4";
+  currentWeatherCode: number = 0;
 
   async ngOnInit() {
-    var weather = await this.getCurrentWeather();
-
-    this.setBackgroundBasedOnWeatherCode(weather);
-
-    while (true) {
-      this.displayedQuote = await this.changeQuote(this.quoteCounter);
-      this.quoteCounter++;
-      await this.delay(120000);
-    }
+    await setInterval(this.checkCurrentWeather.bind(this), 1200000);
+    await setInterval(() => this.changeQuote(this.quoteCounter), 120000);
   }
 
-  changeQuote(counter: number) {
-    if (counter == quotes.length) {
+  async changeQuote(counter: number) {
+    if (counter == this.quotes.length) {
       this.quoteCounter = 0;
     }
-    return quotes[this.quoteCounter].quote;
+
+    this.displayedQuote = this.quotes[this.quoteCounter].quote;
+
+    this.quoteCounter++;
   }
 
-  delay(milliseconds: number) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-  }
-
-  getCurrentWeather(): Promise<fullWeatherResponse> {
-    return fetch('https://api.open-meteo.com/v1/forecast?latitude=43.9844&longitude=-91.8693&timezone=CST&current_weather=true')
+  async checkCurrentWeather() {
+    await fetch('https://api.open-meteo.com/v1/forecast?latitude=43.9844&longitude=-91.8693&timezone=CST&current_weather=true')
       .then(res => res.json())
-      .then(res => {
-        return res as fullWeatherResponse
-      })
+      .then(data => this.setBackgroundBasedOnWeatherCode(data));
   }
 
    setBackgroundBasedOnWeatherCode(weather: fullWeatherResponse) {
+    if(weather.current_weather.weathercode == this.currentWeatherCode)
+    {
+      return;
+    }
+
+    this.currentWeatherCode = weather.current_weather.weathercode;
+
      if (this.codes.clearSky.includes(weather.current_weather.weathercode)) {
         this.videoSource = "./assets/photos/vids/sun.mp4";
      } else if (this.codes.drizzle.includes(weather.current_weather.weathercode)) {
@@ -61,7 +59,7 @@ export class AppComponent implements OnInit {
      } else if (this.codes.freezingRain.includes(weather.current_weather.weathercode)) {
         this.videoSource = "./assets/photos/vids/freezingrain.mp4";
      } else if (this.codes.partlyCloudy.includes(weather.current_weather.weathercode)) {
-        this.videoSource = "./assets/photos/vids/clouds.mp4";
+        this.videoSource = "./assets/photos/vids/partlyCloudy.mp4";
      } else if (this.codes.rain.includes(weather.current_weather.weathercode)) {
         this.videoSource = "./assets/photos/vids/rain.mp4";
      } else if (this.codes.snow.includes(weather.current_weather.weathercode)) {
