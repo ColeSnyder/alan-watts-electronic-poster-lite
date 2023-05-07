@@ -7,14 +7,14 @@ video {
   position: fixed;
   top: 0;
   left: 0;
-  opacity: 75%;
+  opacity: 95%;
 }
 
 html, body {
   margin: 0;
   width: 100%;
   height: 100%;
-  opacity: 90%;
+  opacity: 100%;
 }
 
 .viewport-header {
@@ -31,4 +31,44 @@ html, body {
   opacity: 100%;
   margin-left: 2%;
   margin-right: 2%;
+}
+
+.weatherBox {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: 5px solid white;
+  color: white;
+  padding: 10px;
+  font-size: 1.2em;
+  margin: 20px;
+}
+
+.timeBox {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 5px solid white;
+  color: white;
+  padding: 10px;
+  font-size: 2em;
+  margin: 20px;
+}
+
+.authorBox {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 5px solid white;
+  background-size: contain;
+  width: 200px;
+  height: 200px;
+  color: white;
+  padding: 10px;
+  font-size: 2em;
+  margin: 20px;
+}
+
+#authorBoxx {
+
 }

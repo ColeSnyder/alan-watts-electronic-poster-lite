@@ -7,5 +7,19 @@
         <h1>
           <span>"{{displayedQuote}}"</span>
         </h1>
+        <p>{{author}}</p>
     </header>
+    <div class="weatherBox">
+      Temp: {{temperature}} c
+      <br>
+      Wind: {{windSpeed}} mph
+      <br>
+      Weather: {{condition}}
+    </div>
+    <div class="timeBox">
+      Time: {{hour}}:{{minutes}}
+    </div>
+    <div class="authorBox" id="authorBoxx">
+
+    </div>
 </router-outlet>
