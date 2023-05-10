@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import quotes from '../assets/quotes/quotes.json';
-import { fullWeatherResponse } from './home/weatherModels/fullWeatherResponse.model';
-import { weatherCodes } from './home/weatherModels/weatherCodes';
+import { weatherCodes } from './weather/weatherCodes';
 
 interface Quote {
   quote: string,
@@ -37,20 +36,24 @@ export class AppComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
+
+        this.checkCurrentWeather();
+
+        setInterval(() => this.checkCurrentWeather(), 1200000);
       });
+
     } else {
       console.log("Geolocation is not available for user");
     }
-    this.checkCurrentWeather();
+
     this.changeQuote();
 
-    await setInterval(() => this.display_ct(), 1000);
-    await setInterval(() => this.changeQuote(), 60000);
-    await setInterval(this.checkCurrentWeather.bind(this), 1200000);
+    setInterval(() => this.display_time(), 1000);
+    setInterval(() => this.changeQuote(), 60000);
   }
 
   changeQuote() {
-    var newQuoteIndex = Math.floor(Math.random() * (this.quotes.length - 0 + 1) + 0);
+    var newQuoteIndex = Math.floor((Math.random() * this.quotes.length));
     this.displayedQuote = this.quotes[newQuoteIndex].quote;
     this.author = this.quotes[newQuoteIndex].author;
     this.quoteCounter++;
@@ -74,90 +77,109 @@ export class AppComponent implements OnInit {
    } 
   }
 
-  async checkCurrentWeather() {
-    await fetch("https://api.open-meteo.com/v1/forecast?latitude=" + this.latitude + "&longitude=" + this.longitude + "&timezone=CST&current_weather=true&forecast_days=1")
+  checkCurrentWeather() {
+      fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + this.latitude + "&lon=" + this.longitude + "&units=imperial&appid=c5c5544ec740f0c9a05f7e006a5381ff")
       .then(res => res.json())
       .then(data => this.setBackgroundBasedOnWeatherCode(data));
-  }
+   }
 
-   setBackgroundBasedOnWeatherCode(weather: fullWeatherResponse) {
-    if(weather.current_weather.weathercode == this.currentWeatherCode)
+  setBackgroundBasedOnWeatherCode(weather: any) {
+    if(weather.weather[0].id == this.currentWeatherCode)
     {
       return;
     }
+    
+    this.currentWeatherCode = weather.weather[0].id;
 
-    this.currentWeatherCode = weather.current_weather.weathercode;
-
-     if (this.codes.clearSky.includes(weather.current_weather.weathercode)) {
+     if (this.codes.clearSky.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/sun.mp4";
-     } else if (this.codes.drizzle.includes(weather.current_weather.weathercode)) {
+     } else if (this.codes.drizzle.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/drizzle.mp4";
-     } else if (this.codes.fog.includes(weather.current_weather.weathercode)) {
+     } else if (this.codes.fog.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/fog.mp4";
-     } else if (this.codes.freezingRain.includes(weather.current_weather.weathercode)) {
+     } else if (this.codes.freezingRain.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/freezingrain.mp4";
-     } else if (this.codes.partlyCloudy.includes(weather.current_weather.weathercode)) {
+     } else if (this.codes.partlyCloudy.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/partlyCloudy.mp4";
-     } else if (this.codes.rain.includes(weather.current_weather.weathercode)) {
+     } else if (this.codes.rain.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/rain.mp4";
-     } else if (this.codes.snow.includes(weather.current_weather.weathercode)) {
+     } else if (this.codes.snow.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/snow.mp4";
      }
 
      this.setWeatherUnits(weather);
-   }
+  }
 
-   setWeatherUnits(weather: fullWeatherResponse) {
-    this.temperature = this.roundedToFixed(weather.current_weather.temperature, 1);
-    this.windSpeed = this.roundedToFixed(weather.current_weather.windspeed / 1.609344, 1);
-    switch(weather.current_weather.weathercode) { 
-      case 0: { 
+  setWeatherUnits(weather: any) {
+    this.temperature = this.roundedToFixed(weather.main.temp, 1);
+    this.windSpeed = weather.wind.speed;
+    switch(weather.weather[0].id) { 
+      case 800: { 
          this.condition = "Clear Sky"
          break; 
       } 
-      case 1: 
-      case 2:
-      case 3:{ 
+      case 801: 
+      case 802:
+      case 803:
+      case 804:{ 
          this.condition = "Partly Cloudy"
          break; 
       } 
-      case 45:
-      case 48:{ 
+      case 741:
+      case 701:{ 
          this.condition = "Fog"
          break; 
       } 
-      case 51:
-      case 53:
-      case 55:
-      case 56:
-      case 57:{ 
+      case 300:
+      case 301:
+      case 302:
+      case 310:
+      case 311:
+      case 312:
+      case 313:
+      case 314:
+      case 321:{ 
          this.condition = "Drizzle"
          break; 
       } 
-      case 61:
-      case 63:
-      case 65:
-      case 80:
-      case 81:
-      case 82:
-      case 95:
-      case 96:
-      case 99:{ 
+      case 200:
+      case 201:
+      case 202:
+      case 210:
+      case 211:
+      case 212:
+      case 221:
+      case 230:
+      case 231:
+      case 232:
+      case 500:
+      case 501:
+      case 502:
+      case 503:
+      case 504:
+      case 520:
+      case 521:
+      case 522:
+      case 531:{ 
          this.condition = "Rain"
          break; 
       } 
-      case 66:
-      case 67:{ 
+      case 511:{ 
          this.condition = "Freezing Rain"
          break; 
       } 
-      case 71:
-      case 73:
-      case 75:
-      case 77:
-      case 85:
-      case 86:{ 
-         this.condition = "Rain"
+      case 600:
+      case 601:
+      case 602:
+      case 611:
+      case 612:
+      case 613:
+      case 615:
+      case 616:
+      case 620:
+      case 621:
+      case 622:{ 
+         this.condition = "snow"
          break; 
       }
       default: { 
@@ -165,16 +187,16 @@ export class AppComponent implements OnInit {
          break; 
       } 
    } 
-   }
+  }
 
-   display_ct() {
+  display_time() {
     var currentTime = new Date();
     this.hour = currentTime.getHours().toString().length == 2 ? currentTime.getHours().toString() : "0" + currentTime.getHours().toString()
     this.minutes = currentTime.getMinutes().toString().length == 2 ? currentTime.getMinutes().toString() : "0" + currentTime.getMinutes().toString();
-   }
+  }
 
-    roundedToFixed(input: number, digits: number){
+  roundedToFixed(input: number, digits: number){
       var rounder = Math.pow(10, digits);
       return (Math.round(input * rounder) / rounder).toFixed(digits).toString();
-    }
+  }
 }
