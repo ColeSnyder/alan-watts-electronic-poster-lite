@@ -84,6 +84,8 @@ export class AppComponent implements OnInit {
    }
 
   setBackgroundBasedOnWeatherCode(weather: any) {
+    this.setWeatherUnits(weather);
+
     if(weather.weather[0].id == this.currentWeatherCode)
     {
       return;
@@ -106,8 +108,6 @@ export class AppComponent implements OnInit {
      } else if (this.codes.snow.includes(weather.weather[0].id)) {
         this.videoSource = "./assets/photos/vids/snow.mp4";
      }
-
-     this.setWeatherUnits(weather);
   }
 
   setWeatherUnits(weather: any) {
