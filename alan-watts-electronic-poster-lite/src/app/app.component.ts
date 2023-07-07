@@ -86,28 +86,28 @@ export class AppComponent implements OnInit {
   setBackgroundBasedOnWeatherCode(weather: any) {
     this.setWeatherUnits(weather);
 
-    if(weather.weather[0].id == this.currentWeatherCode)
-    {
-      return;
-    }
-    
-    this.currentWeatherCode = weather.weather[0].id;
-
-     if (this.codes.clearSky.includes(weather.weather[0].id)) {
-        this.videoSource = "./assets/photos/vids/sun.mp4";
-     } else if (this.codes.drizzle.includes(weather.weather[0].id)) {
-        this.videoSource = "./assets/photos/vids/drizzle.mp4";
-     } else if (this.codes.fog.includes(weather.weather[0].id)) {
-        this.videoSource = "./assets/photos/vids/fog.mp4";
-     } else if (this.codes.freezingRain.includes(weather.weather[0].id)) {
-        this.videoSource = "./assets/photos/vids/freezingrain.mp4";
-     } else if (this.codes.partlyCloudy.includes(weather.weather[0].id)) {
-        this.videoSource = "./assets/photos/vids/partlyCloudy.mp4";
-     } else if (this.codes.rain.includes(weather.weather[0].id)) {
-        this.videoSource = "./assets/photos/vids/rain.mp4";
-     } else if (this.codes.snow.includes(weather.weather[0].id)) {
-        this.videoSource = "./assets/photos/vids/snow.mp4";
+     if(weather.weather[0].id == this.currentWeatherCode)
+     {
+       return;
      }
+    
+     this.currentWeatherCode = weather.weather[0].id;
+
+      if (this.codes.clearSky.includes(weather.weather[0].id)) {
+         this.videoSource = "./assets/photos/vids/sun.mp4";
+      } else if (this.codes.drizzle.includes(weather.weather[0].id)) {
+         this.videoSource = "./assets/photos/vids/drizzle.mp4";
+      } else if (this.codes.fog.includes(weather.weather[0].id)) {
+         this.videoSource = "./assets/photos/vids/fog.mp4";
+      } else if (this.codes.freezingRain.includes(weather.weather[0].id)) {
+         this.videoSource = "./assets/photos/vids/freezingrain.mp4";
+      } else if (this.codes.partlyCloudy.includes(weather.weather[0].id)) {
+         this.videoSource = "./assets/photos/vids/partlyCloudy.mp4";
+      } else if (this.codes.rain.includes(weather.weather[0].id)) {
+         this.videoSource = "./assets/photos/vids/rain.mp4";
+      } else if (this.codes.snow.includes(weather.weather[0].id)) {
+         this.videoSource = "./assets/photos/vids/snow.mp4";
+      }
   }
 
   setWeatherUnits(weather: any) {

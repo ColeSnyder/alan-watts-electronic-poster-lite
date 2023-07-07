@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "electronicposter",
     "public": "public",
     "ignore": [
       "firebase.json",
